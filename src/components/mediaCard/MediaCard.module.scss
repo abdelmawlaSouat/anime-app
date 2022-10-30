@@ -1,0 +1,35 @@
+.cardWrapper {
+    display: grid;
+    grid-template-columns: 200px auto;
+    max-width: 450px;
+    height: 286px;
+}
+
+.description {
+    margin: 1rem 0;
+}
+
+.cardContentWrapper {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+    &:hover {
+        overflow-y: auto;
+    }
+}
+
+.cardContent {
+    overflow: visible;
+    box-sizing: border-box;
+    padding: 0 1rem;
+    width: 250px;
+}
+
+.genresList {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 5px;
+    column-gap: 10px;
+}

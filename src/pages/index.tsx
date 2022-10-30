@@ -1,23 +1,35 @@
+import { MediaList } from "../components/mediaList";
+import { GET_MEDIA_OVERVIEW_LIST } from "../queries/getMediaOverviewList";
+import { getMediaList } from "../services/getMediaList";
+import { MediaOverview } from "../types/MediaOverview";
+import { PageInfo } from "../types/PageInfo";
+import get from "lodash/get";
 import type { NextPage } from "next";
-import { useEffect } from "react";
-import styles from "../styles/Home.module.css";
 
-const Home: NextPage = () => {
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetch("https://api.jikan.moe/v4/top/anime")
-        .then((response) => response.json())
-        .then((data) => console.log(data));
+interface Props {
+  mediaList: MediaOverview[];
+  pageInfo: PageInfo;
+}
 
-      return data;
-    };
+const Home: NextPage<Props> = ({ mediaList, pageInfo }) => {
+  console.log("page info: ", pageInfo);
 
-    const data = fetchData();
-
-    console.log(data);
-  }, []);
-
-  return <div className={styles.container}></div>;
+  return (
+    <div>
+      <MediaList list={mediaList} />
+    </div>
+  );
 };
+
+export async function getServerSideProps() {
+  const { data } = await getMediaList(GET_MEDIA_OVERVIEW_LIST);
+
+  return {
+    props: {
+      mediaList: get(data, "Page.media"),
+      pageInfo: get(data, "Page.pageInfo"),
+    },
+  };
+}
 
 export default Home;

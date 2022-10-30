@@ -1,0 +1,7 @@
+.listWrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 450px);
+    justify-content: center;
+    row-gap: 3.5rem;
+    column-gap: 4rem;
+}
